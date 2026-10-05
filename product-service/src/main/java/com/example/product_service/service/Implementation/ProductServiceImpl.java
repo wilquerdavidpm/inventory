@@ -8,7 +8,10 @@ import com.example.product_service.model.Product;
 import com.example.product_service.repository.ProductRepository;
 import com.example.product_service.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ProblemDetail;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
 
 import java.util.List;
 

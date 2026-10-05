@@ -47,4 +47,7 @@ public class ProductController {
     public void deleteProductById(@PathVariable String id){
         productService.deleteProduct(id);
     }
+
+    @GetMapping("/test-fail")
+    public void testFail(){ throw new RuntimeException("Hola");}
 }

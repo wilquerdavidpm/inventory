@@ -52,4 +52,16 @@ public class GlobalControllerAdvice {
 
         return problemDetail;
     }
+
+    @ExceptionHandler(Exception.class)
+    public ProblemDetail handleException(Exception exception, WebRequest request){
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR,
+                "Ha ocurrido un error inesperado. Por favor intente nuevamente.");
+
+        problemDetail.setTitle("internal server error");
+        problemDetail.setType(URI.create("https://api.ecommerce.com/error/"));
+        problemDetail.setProperty("Timestamp", Instant.now());
+
+        return problemDetail;
+    }
 }
