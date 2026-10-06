@@ -1,6 +1,5 @@
 package com.example.product_service.exception;
 
-import com.example.product_service.model.Product;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.MethodArgumentNotValidException;
