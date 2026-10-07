@@ -22,7 +22,7 @@ public class MongoConfig extends AbstractMongoClientConfiguration {
                 "root", "admin", "password".toCharArray()
         );
         MongoClientSettings settings = MongoClientSettings.builder()
-                .applyConnectionString(new ConnectionString("mongodb://localhost:27017"))
+                .applyConnectionString(new ConnectionString("mongodb://localhost:27017")) //aquí hay que cambiar de localhost:27017 a mongodb:27017 para que funcione dockerizado
                 .credential(credential)
                 .build();
         return MongoClients.create(settings);

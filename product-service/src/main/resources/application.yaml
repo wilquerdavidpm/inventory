@@ -2,8 +2,14 @@ spring:
   application:
     name: product-service
   data:
-    mongodb: 
+    mongodb:
+      host: localhost  #Se cambia localhost por mongodb para que funcione correctamente dockerizado, de lo contrario, el contenedor de docker no conecta con mongo
+                        # También hay que configurar esto mismo en el MongoConfig.java
+      port: 27017
       database: product-db
+      username: root
+      password: password
+      authentication-database: admin
 server:
   port: 8080
   error:
