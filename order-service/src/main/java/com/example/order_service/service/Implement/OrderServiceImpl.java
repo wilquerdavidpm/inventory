@@ -43,17 +43,7 @@ public class OrderServiceImpl implements OrderService {
             totalPrice = totalPrice.add(subtotal);
         }
 
-        /*List<OrderItems> orderItems = orderRequestDTO.getOrderItemsList()
-                .stream()
-                .map(orderMapper::toOrderItems)
-                .toList();*/
-
-        Order order = orderMapper.toOrder(orderRequestDTO);/*new Order(
-                UUID.randomUUID().toString(),
-                OrderStatus.PLACED,
-                totalPrice,
-                orderItems
-        );*/
+        Order order = orderMapper.toOrder(orderRequestDTO);
         order.setId(UUID.randomUUID().toString());
         order.setTotalPrice(totalPrice);
         order.setStatus(OrderStatus.PLACED);
