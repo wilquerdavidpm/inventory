@@ -29,4 +29,11 @@ public class OrderController {
     public OrderResponseDTO createOrder(@Valid @RequestBody OrderRequestDTO orderRequestDTO) {
         return orderService.createOrder(orderRequestDTO);
     }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public OrderResponseDTO getOrderById(@PathVariable String id) {
+        return orderService.getOrderById(id);
+    }
+
 }

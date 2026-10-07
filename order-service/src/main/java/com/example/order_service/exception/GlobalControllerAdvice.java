@@ -1,4 +1,4 @@
-package com.example.product_service.exception;
+package com.example.order_service.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -20,7 +20,7 @@ public class GlobalControllerAdvice {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, exception.getMessage());
 
         problemDetail.setTitle("Recurso no encontrado");
-        problemDetail.setType(URI.create("https://api.ecommerce.com/v1/product/errors/not-found"));
+        problemDetail.setType(URI.create("https://api.ecommerce.com/v1/order/errors/not-found"));
         problemDetail.setProperty("Timestamp", Instant.now());
 
         problemDetail.setProperty("Resource", exception.getResourceName());
@@ -36,7 +36,7 @@ public class GlobalControllerAdvice {
                 "la validación falló en uno o más campos.");
 
         problemDetail.setTitle("Error de validación");
-        problemDetail.setType(URI.create("https://api.ecommerce.com/v1/product/errors/error-validation"));
+        problemDetail.setType(URI.create("https://api.ecommerce.com/v1/order/errors/errors/error-validation"));
         problemDetail.setProperty("Timestamp", Instant.now());
 
         Map<String, String> errorMap = new HashMap<>();
@@ -58,7 +58,7 @@ public class GlobalControllerAdvice {
                 "Ha ocurrido un error inesperado. Por favor intente nuevamente.");
 
         problemDetail.setTitle("internal server error");
-        problemDetail.setType(URI.create("https://api.ecommerce.com/v1/product/error/"));
+        problemDetail.setType(URI.create("https://api.ecommerce.com/v1/order/errors/error/"));
         problemDetail.setProperty("Timestamp", Instant.now());
 
         return problemDetail;

@@ -3,6 +3,7 @@ package com.example.order_service.service.Implement;
 import com.example.order_service.dto.OrderItemsRequestDTO;
 import com.example.order_service.dto.OrderRequestDTO;
 import com.example.order_service.dto.OrderResponseDTO;
+import com.example.order_service.exception.ResourceNotFoundException;
 import com.example.order_service.mapper.OrderMapper;
 import com.example.order_service.model.Order;
 import com.example.order_service.model.OrderItems;
@@ -60,6 +61,16 @@ public class OrderServiceImpl implements OrderService {
         Order createdOrder = orderRepository.save(order);
 
         return orderMapper.toOrderResponseDTO(createdOrder);
+    }
+
+    @Override
+    public OrderResponseDTO getOrderById(String id) {
+
+        Order order = orderRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Orden", "id", id)
+        );
+
+        return orderMapper.toOrderResponseDTO(order);
     }
 
     @Override
