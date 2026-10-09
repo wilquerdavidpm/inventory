@@ -17,5 +17,22 @@ spring:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
+  cloud:
+    consul:
+      host: localhost     #cambiar a "consul" cuando se vaya a levantar en Docker
+      port: 8500
+      discovery:
+        enable: true
+        register: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+
 server:
   port: 8081

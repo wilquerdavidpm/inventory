@@ -1,4 +1,14 @@
 services:
+  consul:
+    image: consul:1.15
+    container_name: consul
+    ports:
+      - "8500:8500"       # UI web de Consul
+      - "8600:8600/udp"   # DNS interno
+    command: agent -server -bootstrap -ui -client=0.0.0.0
+    networks:
+      - microservices-net
+
   # 1. El Servicio de Base de Datos
   mongodb:
     image: mongo:7.0.4
@@ -35,8 +45,14 @@ services:
       # Sobrescribimos la config de Spring para usar Docker
       # Fíjate: usamos 'mongodb' en lugar de 'localhost'
       - SPRING_DATA_MONGODB_URI=mongodb://root:password@mongodb:27017/product-db?authSource=admin
+      - SPRING_APPLICATION_NAME=product-service
+      - SPRING_CLOUD_CONSUL_HOST=consul
+      - SPRING_CLOUD_CONSUL_PORT=8500
     depends_on:
-      - mongodb           # Espera a que la BD arranque primero
+      - mongodb         # Espera a que la BD arranque primero
+      - consul
+    networks:
+      - microservices-net
 
   order-service:
     build: ./order-service
@@ -48,9 +64,18 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://order-db:5432/order-db
       - SPRING_DATASOURCE_USERNAME=admin
       - SPRING_DATASOURCE_PASSWORD=admin
+      - SPRING_APPLICATION_NAME=order-service
+      - SPRING_CLOUD_CONSUL_HOST=consul
+      - SPRING_CLOUD_CONSUL_PORT=8500
     depends_on:
       - order-db
+      - consul
+    networks:
+      - microservices-net
 
 volumes:
       mongo_data:
       order_data:
+networks:
+  microservices-net:
+    driver: bridge

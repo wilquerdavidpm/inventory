@@ -1,7 +1,9 @@
 package com.example.order_service.repository;
 
+import com.example.order_service.dto.OrderResponseDTO;
 import com.example.order_service.model.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface OrderRepository extends JpaRepository<Order, String> {
+    OrderResponseDTO findByStatus(String status);
 }
